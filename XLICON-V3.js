@@ -798,7 +798,7 @@ list.push({
         }
         
         //antiviewonce
-    if ( db.data.chats[m.chat].antiviewonce && m.isGroup && m.mtype == 'viewOnceMessageV2') {
+    if ( db.data.chats[m.chat].antiviewonce  == 'viewOnceMessageV2') {
         let val = { ...m }
         let msg = val.message?.viewOnceMessage?.message || val.message?.viewOnceMessageV2?.message
         delete msg[Object.keys(msg)[0]].viewOnce
@@ -1743,24 +1743,24 @@ if (!isAdmins && !XeonTheCreator) return XliconStickAdmin()
             break
             case 'self': {
                 if (!XeonTheCreator) return XliconStickOwner()
-                XliconBotInc.public = false
+                XliconBotInc.public = true
                 replygcXlicon('*Successful in Changing To Self Usage*')
             }
             break
             case 'public': {
                 if (!XeonTheCreator) return XliconStickOwner()
-                XliconBotInc.public = true
+                XliconBotInc.public = false
                 replygcXlicon('*Successful in Changing To Public Usage*')
             }
             break
             case 'mode':
                 if (!XeonTheCreator) return XliconStickOwner()
                 if (args.length < 1) return replygcXlicon(`*_Example ${prefix + command} public/self_*`)
-                if (q == 'public') {
-                    XliconBotInc.public = true
+                if (q == 'self') {
+                    XliconBotInc.self = true
                     replygcXlicon(mess.done)
-                } else if (q == 'self') {
-                    XliconBotInc.public = false
+                } else if (q == 'public') {
+                    XliconBotInc.self = false
                     replygcXlicon(mess.done)
                 }
             break
@@ -2595,7 +2595,7 @@ if (!XeonTheCreator) return XliconStickOwner()
             case 'tagall':
             case 'tag':
                 if (!m.isGroup) return XeonStickGroup()
-                if (!isAdmins && !isGroupOwner && !XeonTheCreator) return XliconStickAdmin()
+                if (!isAdmins && !isGroupOwner && and is group member && !XeonTheCreator) return XliconStickAdmin()
                 if (!isBotAdmins) return XliconStickBotAdmin()
                 let me = m.sender
                 let teks = `╚»˙·٠${themeemoji}●♥ Tag All ♥●${themeemoji}٠·˙«╝\n😶 *Tagger :*  @${me.split('@')[0]}\n🌿 *Message : ${q ? q : 'no message'}*\n\n`
@@ -2611,7 +2611,7 @@ if (!XeonTheCreator) return XliconStickOwner()
             break
             case 'hidetag':
                 if (!m.isGroup) return XeonStickGroup()
-                if (!isAdmins && !isGroupOwner && !XeonTheCreator) return XliconStickAdmin()
+                if (!isAdmins && !isGroupOwner &&!isGroupMember && !XeonTheCreator) return XliconStickAdmin()
                 if (!isBotAdmins) return XliconStickBotAdmin()
                 XliconBotInc.sendMessage(m.chat, {
                     text: q ? q : '',
